@@ -14,7 +14,8 @@ export async function GET() {
     }
 
     return NextResponse.json(notes);
-  } catch (error) {
+  } catch (err) {
+    console.error('Notlar getirilirken hata:', err);
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

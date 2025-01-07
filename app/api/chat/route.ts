@@ -2,6 +2,13 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { createClient } from '@/utils/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
+interface Note {
+  id: string;
+  title: string;
+  content: string;
+  created_at: string;
+}
+
 if (!process.env.NEXT_PUBLIC_GEMINI_API_KEY) {
   throw new Error('GEMINI_API_KEY is not defined');
 }
@@ -51,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     if (notes && notes.length > 0) {
       systemPrompt += "\n\nİLGİLİ NOTLARINIZ:\n";
-      notes.forEach((note: any) => {
+      notes.forEach((note: Note) => {
         systemPrompt += `\n--- Not Başlangıcı ---\nBaşlık: ${note.title}\nİçerik: ${note.content}\n--- Not Sonu ---\n`;
       });
     } else {

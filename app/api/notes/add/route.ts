@@ -16,7 +16,8 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(data[0]);
-  } catch (error) {
+  } catch (err) {
+    console.error('Not eklenirken hata:', err);
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
